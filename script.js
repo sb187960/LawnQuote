@@ -33,6 +33,7 @@
     businessName: 'GreenThumb Lawn & Landscape',
     phone: '(555) 234-5678',
     email: 'quotes@greenthumb-example.com',
+    validDays: 14,
     minJobCharge: 50.0,
     quoteTerms: 'Estimates valid for 14 days. Payment due upon completion of services.',
     rates: {
@@ -43,7 +44,27 @@
       overseed: 18.0,    // $ per 1,000 sq ft
       mulch: 85.0,       // $ per cubic yard
       hedge: 55.0        // $ per crew hour
-    }
+    },
+    logo: ''
+  };
+
+  const DEMO_BUSINESS = {
+    businessName: 'Green Edge Lawn Co.',
+    phone: '(555) 345-6789',
+    email: 'quotes@greenedge-fake.com',
+    validDays: 14,
+    minJobCharge: 50.0,
+    quoteTerms: 'Estimates valid for 14 days. Payment due upon completion of services.',
+    rates: {
+      mowing: 12.0,
+      edging: 4.0,
+      leaf: 8.0,
+      fertilizer: 9.0,
+      overseed: 18.0,
+      mulch: 85.0,
+      hedge: 55.0
+    },
+    logo: ''
   };
 
   const STORAGE_KEY = 'lawnquote_crew_settings_v1';
@@ -91,6 +112,24 @@
       lblRateHedge: 'Hedge Trimming Rate ($ per crew hour) *',
       lblRateFertilizer: 'Fertilization Rate ($ per 1,000 sq ft) *',
       lblRateOverseed: 'Overseeding & Rye Grass Rate ($ per 1,000 sq ft) *',
+      lblLogo: 'Business Logo (Optional)',
+      hintLogo: 'PNG or JPG (auto-resized to max 300px wide)',
+      btnRemoveLogo: '✕ Remove Logo',
+      logoTooLargeError: 'Logo is too large to save. Try a smaller image.',
+      lblValidDays: 'Quote Valid For (Days)',
+      hintValidDays: 'Number of days before this quote expires',
+      lblDateIssued: 'Date Issued:',
+      lblValidUntil: 'Valid Until:',
+      btnDemoBusiness: '🏢 Load Demo Business',
+      toastDemoLoaded: 'Demo business loaded! Rates and name are ready for your demo.',
+      btnClearAll: '🗑️ Clear All Data',
+      clearConfirmMsg: '⚠️ Are you sure you want to clear all quotes, settings, and logo? This cannot be undone.',
+      btnConfirmClear: 'Yes, Clear All Data',
+      btnCancelClear: 'Cancel',
+      toastAllCleared: 'All data cleared. App reset to defaults.',
+      sigAcceptance: 'Accepted by: ____________________________________',
+      sigDateLine: 'Date: ________________________',
+      thankYouFooter: 'Thank you for your business!',
       btnSaveSettings: 'Save Settings',
       btnExportBackup: 'Export Backup',
       btnImportBackup: 'Import Backup',
@@ -375,6 +414,24 @@
       lblRateHedge: 'Tarifa de Poda de Setos ($ por hora de cuadrilla) *',
       lblRateFertilizer: 'Tarifa de Fertilización ($ por 1,000 pies²) *',
       lblRateOverseed: 'Tarifa de Resiembra y Rye ($ por 1,000 pies²) *',
+      lblLogo: 'Logo del Negocio (Opcional)',
+      hintLogo: 'PNG o JPG (redimensionado automáticamente a máx. 300px de ancho)',
+      btnRemoveLogo: '✕ Eliminar Logo',
+      logoTooLargeError: 'El logo es demasiado grande para guardar. Intente con una imagen más pequeña.',
+      lblValidDays: 'Cotización Válida Por (Días)',
+      hintValidDays: 'Número de días antes de que esta cotización expire',
+      lblDateIssued: 'Fecha de Emisión:',
+      lblValidUntil: 'Válida Hasta:',
+      btnDemoBusiness: '🏢 Cargar Negocio Demo',
+      toastDemoLoaded: '¡Negocio demo cargado! Tarifas y nombre listos para su demo.',
+      btnClearAll: '🗑️ Borrar Todos los Datos',
+      clearConfirmMsg: '⚠️ ¿Está seguro de que desea borrar todas las cotizaciones, configuraciones y logo? Esta acción no se puede deshacer.',
+      btnConfirmClear: 'Sí, Borrar Todo',
+      btnCancelClear: 'Cancelar',
+      toastAllCleared: 'Todos los datos borrados. La aplicación se restableció a los valores predeterminados.',
+      sigAcceptance: 'Aceptado por: ____________________________________',
+      sigDateLine: 'Fecha: ________________________',
+      thankYouFooter: '¡Gracias por su preferencia!',
       btnSaveSettings: 'Guardar Configuración',
       btnExportBackup: 'Exportar Respaldo',
       btnImportBackup: 'Importar Respaldo',
@@ -702,9 +759,15 @@
     priceSheet: {
       form: document.getElementById('price-sheet-form'),
       bizName: document.getElementById('setting-business-name'),
+      logoInput: document.getElementById('setting-logo-input'),
+      logoPreviewBox: document.getElementById('logo-preview-box'),
+      logoPreviewImg: document.getElementById('logo-preview-img'),
+      removeLogoBtn: document.getElementById('btn-remove-logo'),
+      logoError: document.getElementById('logo-error'),
       phone: document.getElementById('setting-phone'),
       email: document.getElementById('setting-email'),
       minCharge: document.getElementById('setting-min-charge'),
+      validDays: document.getElementById('setting-valid-days'),
       terms: document.getElementById('setting-terms'),
       rateMowing: document.getElementById('setting-rate-mowing'),
       rateEdging: document.getElementById('setting-rate-edging'),
@@ -714,6 +777,11 @@
       rateMulch: document.getElementById('setting-rate-mulch'),
       rateHedge: document.getElementById('setting-rate-hedge'),
       resetBtn: document.getElementById('btn-reset-settings'),
+      demoBizBtn: document.getElementById('btn-demo-business'),
+      clearAllBtn: document.getElementById('btn-clear-all'),
+      clearAllConfirmBox: document.getElementById('clear-all-confirm-box'),
+      confirmClearBtn: document.getElementById('btn-confirm-clear'),
+      cancelClearBtn: document.getElementById('btn-cancel-clear'),
       toast: document.getElementById('settings-toast'),
       warningBanner: document.getElementById('pricesheet-warning'),
       hintBanner: document.getElementById('pricesheet-hint-banner'),
@@ -723,6 +791,7 @@
       errors: {
         bizName: document.getElementById('error-setting-business-name'),
         minCharge: document.getElementById('error-setting-min-charge'),
+        validDays: document.getElementById('error-setting-valid-days'),
         rateMowing: document.getElementById('error-setting-rate-mowing'),
         rateEdging: document.getElementById('error-setting-rate-edging'),
         rateLeaf: document.getElementById('error-setting-rate-leaf'),
@@ -794,10 +863,13 @@
       emptyStartBtn: document.getElementById('btn-empty-start-quote'),
       emptySampleBtn: document.getElementById('btn-empty-sample-quote'),
       bizName: document.getElementById('view-biz-name'),
+      bizLogo: document.getElementById('view-biz-logo'),
       bizPhone: document.getElementById('view-biz-phone'),
       bizEmail: document.getElementById('view-biz-email'),
       quoteDate: document.getElementById('view-quote-date'),
       quoteId: document.getElementById('view-quote-id'),
+      quoteValid: document.getElementById('view-quote-valid'),
+      footerContact: document.getElementById('view-footer-contact'),
       custName: document.getElementById('view-cust-name'),
       custAddress: document.getElementById('view-cust-address'),
       yardSize: document.getElementById('view-yard-size'),
@@ -1238,7 +1310,9 @@
           phone: parsed.phone !== undefined ? parsed.phone : DEFAULT_SETTINGS.phone,
           email: parsed.email !== undefined ? parsed.email : DEFAULT_SETTINGS.email,
           minJobCharge: (typeof parsed.minJobCharge === 'number' && parsed.minJobCharge >= 0) ? parsed.minJobCharge : DEFAULT_SETTINGS.minJobCharge,
+          validDays: (typeof parsed.validDays === 'number' && parsed.validDays >= 1) ? parsed.validDays : DEFAULT_SETTINGS.validDays,
           quoteTerms: parsed.quoteTerms || DEFAULT_SETTINGS.quoteTerms,
+          logo: parsed.logo || '',
           rates: {
             mowing: (parsed.rates && typeof parsed.rates.mowing === 'number') ? parsed.rates.mowing : DEFAULT_SETTINGS.rates.mowing,
             edging: (parsed.rates && typeof parsed.rates.edging === 'number') ? parsed.rates.edging : DEFAULT_SETTINGS.rates.edging,
@@ -1278,6 +1352,7 @@
     s.phone.value = data.phone || '';
     s.email.value = data.email || '';
     s.minCharge.value = data.minJobCharge;
+    if (s.validDays) s.validDays.value = data.validDays !== undefined ? data.validDays : 14;
     s.terms.value = data.quoteTerms;
     s.rateMowing.value = data.rates.mowing;
     s.rateEdging.value = data.rates.edging;
@@ -1286,6 +1361,18 @@
     s.rateOverseed.value = data.rates.overseed;
     s.rateMulch.value = data.rates.mulch;
     s.rateHedge.value = data.rates.hedge;
+
+    // Logo preview
+    if (s.logoPreviewBox && s.logoPreviewImg) {
+      if (data.logo) {
+        s.logoPreviewImg.src = data.logo;
+        s.logoPreviewBox.style.display = 'flex';
+      } else {
+        s.logoPreviewImg.src = '';
+        s.logoPreviewBox.style.display = 'none';
+      }
+    }
+    if (s.logoError) s.logoError.style.display = 'none';
   }
 
   function updateScreenBadges() {
@@ -1360,12 +1447,16 @@
 
     if (!valid) return null;
 
+    const validDaysVal = s.validDays ? (parseInt(s.validDays.value, 10) || 14) : 14;
+
     return {
       businessName: s.bizName.value.trim(),
       phone: s.phone.value.trim(),
       email: s.email.value.trim(),
       minJobCharge: minChargeVal,
+      validDays: validDaysVal,
       quoteTerms: s.terms.value.trim(),
+      logo: (currentSettings && currentSettings.logo) ? currentSettings.logo : '',
       rates
     };
   }
@@ -1672,29 +1763,43 @@
     p.bizName.textContent = currentSettings.businessName;
     p.bizPhone.textContent = currentSettings.phone ? currentSettings.phone : '';
     p.bizEmail.textContent = currentSettings.email ? currentSettings.email : '';
-    
-    // Format date in current language
+
+    // Logo: show if set, else hide and colour biz name in skill dark green
+    if (p.bizLogo) {
+      const logo = currentSettings.logo || '';
+      if (logo) {
+        p.bizLogo.src = logo;
+        p.bizLogo.style.display = 'block';
+        p.bizName.style.color = '';
+      } else {
+        p.bizLogo.src = '';
+        p.bizLogo.style.display = 'none';
+        p.bizName.style.color = '#2E5E3A';
+      }
+    }
+
+    // Format date using long-form written dates: "November 19, 2026"
+    const longDateLocale = currentLanguage === 'es' ? 'es-US' : 'en-US';
+    const longDateOpts = { month: 'long', day: 'numeric', year: 'numeric' };
     const quoteDateObj = quote.createdAt ? new Date(quote.createdAt) : new Date();
-    p.quoteDate.textContent = quoteDateObj.toLocaleDateString(currentLanguage === 'es' ? 'es-US' : 'en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
+
+    // Use stored dateFormatted if already a long-form date, otherwise reformat
+    if (quote.dateFormatted) {
+      p.quoteDate.textContent = quote.dateFormatted;
+    } else {
+      p.quoteDate.textContent = quoteDateObj.toLocaleDateString(longDateLocale, longDateOpts);
+    }
 
     p.quoteId.textContent = `#${quote.quoteId}`;
 
-    const validElem = document.getElementById('view-quote-valid');
-    if (validElem) {
+    if (p.quoteValid) {
       if (quote.validThrough) {
-        validElem.textContent = quote.validThrough;
+        p.quoteValid.textContent = quote.validThrough;
       } else {
+        const validDays = (currentSettings && currentSettings.validDays) ? currentSettings.validDays : 14;
         const d = new Date(quoteDateObj.getTime());
-        d.setDate(d.getDate() + 14);
-        validElem.textContent = d.toLocaleDateString(currentLanguage === 'es' ? 'es-US' : 'en-US', {
-          month: 'short',
-          day: 'numeric',
-          year: 'numeric'
-        });
+        d.setDate(d.getDate() + validDays);
+        p.quoteValid.textContent = d.toLocaleDateString(longDateLocale, longDateOpts);
       }
     }
 
@@ -1815,11 +1920,176 @@
     if (saveBtnLabel) {
       saveBtnLabel.textContent = isSaved ? t('btnUpdateEstimate') : t('btnSaveEstimate');
     }
+
+    // Footer contact info
+    if (p.footerContact) {
+      const parts = [currentSettings.businessName];
+      if (currentSettings.phone) parts.push(currentSettings.phone);
+      if (currentSettings.email) parts.push(currentSettings.email);
+      p.footerContact.textContent = parts.join(' · ');
+    }
   }
 
   // ---------------------------------------------------------------------------
   // 10. Event Listeners & Binding
   // ---------------------------------------------------------------------------
+
+  // ---------------------------------------------------------------------------
+  // Logo Upload Handler
+  // ---------------------------------------------------------------------------
+  function resizeImageToMax300(file) {
+    return new Promise((resolve, reject) => {
+      if (!file) return reject(new Error('No file provided'));
+      const type = file.type || '';
+      if (!type.includes('png') && !type.includes('jpeg') && !type.includes('jpg')) {
+        return reject(new Error('Please upload a PNG or JPG image.'));
+      }
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('Could not read image file.'));
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onerror = () => reject(new Error('Could not process image.'));
+        img.onload = () => {
+          let tw = img.width;
+          let th = img.height;
+          if (tw > 300) {
+            const ratio = 300 / tw;
+            tw = 300;
+            th = Math.round(th * ratio);
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = tw;
+          canvas.height = th;
+          canvas.getContext('2d').drawImage(img, 0, 0, tw, th);
+          const fmt = type.includes('png') ? 'image/png' : 'image/jpeg';
+          resolve(canvas.toDataURL(fmt, 0.85));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const logoInput = DOM.priceSheet.logoInput;
+  const logoPreviewBox = DOM.priceSheet.logoPreviewBox;
+  const logoPreviewImg = DOM.priceSheet.logoPreviewImg;
+  const removeLogoBtn = DOM.priceSheet.removeLogoBtn;
+  const logoError = DOM.priceSheet.logoError;
+
+  if (logoInput) {
+    logoInput.addEventListener('change', async () => {
+      const file = logoInput.files && logoInput.files[0];
+      if (!file) return;
+      if (logoError) logoError.style.display = 'none';
+      try {
+        const dataUrl = await resizeImageToMax300(file);
+        try {
+          currentSettings.logo = dataUrl;
+          saveSettingsToStorage();
+        } catch (storageErr) {
+          if (logoError) {
+            logoError.textContent = t('logoTooLargeError');
+            logoError.style.display = 'block';
+          }
+          currentSettings.logo = dataUrl; // keep in memory even if storage fails
+        }
+        if (logoPreviewImg) logoPreviewImg.src = dataUrl;
+        if (logoPreviewBox) logoPreviewBox.style.display = 'flex';
+      } catch (err) {
+        if (logoError) {
+          logoError.textContent = err.message || t('logoTooLargeError');
+          logoError.style.display = 'block';
+        }
+      }
+      logoInput.value = '';
+    });
+  }
+
+  if (removeLogoBtn) {
+    removeLogoBtn.addEventListener('click', () => {
+      currentSettings.logo = '';
+      saveSettingsToStorage();
+      if (logoPreviewImg) logoPreviewImg.src = '';
+      if (logoPreviewBox) logoPreviewBox.style.display = 'none';
+      if (logoError) logoError.style.display = 'none';
+      if (logoInput) logoInput.value = '';
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Load Demo Business Handler
+  // ---------------------------------------------------------------------------
+  const demoBizBtn = DOM.priceSheet.demoBizBtn;
+  if (demoBizBtn) {
+    demoBizBtn.addEventListener('click', () => {
+      currentSettings = Object.assign({}, DEFAULT_SETTINGS, DEMO_BUSINESS, {
+        rates: Object.assign({}, DEFAULT_SETTINGS.rates, DEMO_BUSINESS.rates)
+      });
+      saveSettingsToStorage();
+      populateSettingsForm();
+      updateScreenBadges();
+      if (DOM.newQuote.activeBizName) DOM.newQuote.activeBizName.textContent = currentSettings.businessName;
+      if (DOM.newQuote.sampleBadge) DOM.newQuote.sampleBadge.style.display = 'inline-block';
+      const toast = DOM.priceSheet.toast;
+      if (toast) {
+        toast.textContent = t('toastDemoLoaded');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 3000);
+      }
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Clear All Data Handler (in-page confirm, no native dialog)
+  // ---------------------------------------------------------------------------
+  const clearAllBtn = DOM.priceSheet.clearAllBtn;
+  const clearAllConfirmBox = DOM.priceSheet.clearAllConfirmBox;
+  const confirmClearBtn = DOM.priceSheet.confirmClearBtn;
+  const cancelClearBtn = DOM.priceSheet.cancelClearBtn;
+
+  if (clearAllBtn && clearAllConfirmBox) {
+    clearAllBtn.addEventListener('click', () => {
+      clearAllConfirmBox.style.display = 'block';
+      clearAllBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+
+  if (cancelClearBtn && clearAllConfirmBox) {
+    cancelClearBtn.addEventListener('click', () => {
+      clearAllConfirmBox.style.display = 'none';
+    });
+  }
+
+  if (confirmClearBtn && clearAllConfirmBox) {
+    confirmClearBtn.addEventListener('click', () => {
+      // Clear all localStorage keys
+      try { window.localStorage.removeItem(STORAGE_KEY); } catch (e) { /* ignore */ }
+      try { window.localStorage.removeItem(SAVED_ESTIMATES_KEY); } catch (e) { /* ignore */ }
+      try { window.localStorage.removeItem(ESTIMATE_COUNTER_KEY); } catch (e) { /* ignore */ }
+      try { window.localStorage.removeItem(LEGACY_SAVED_QUOTES_KEY); } catch (e) { /* ignore */ }
+
+      // Reset in-memory state
+      currentSettings = Object.assign({}, DEFAULT_SETTINGS, { rates: Object.assign({}, DEFAULT_SETTINGS.rates) });
+      currentQuoteData = null;
+      attachedPhotos = [];
+
+      // Repopulate form and UI
+      populateSettingsForm();
+      updateScreenBadges();
+
+      if (DOM.newQuote.activeBizName) DOM.newQuote.activeBizName.textContent = currentSettings.businessName;
+      if (DOM.newQuote.sampleBadge) DOM.newQuote.sampleBadge.style.display = 'inline-block';
+
+      clearAllConfirmBox.style.display = 'none';
+
+      const toast = DOM.priceSheet.toast;
+      if (toast) {
+        toast.textContent = t('toastAllCleared');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 3000);
+      }
+    });
+  }
 
   // Auto-clear validation errors as user types & update live running total
   const q = DOM.newQuote;
@@ -1951,6 +2221,56 @@
     });
   }
 
+  // Customer Contact Validation (Gentle on-page messages, non-blocking)
+  const phoneFeedback = document.getElementById('phone-feedback');
+  const emailFeedback = document.getElementById('email-feedback');
+
+  function validateCustomerPhone() {
+    if (!q.custPhone || !phoneFeedback) return;
+    const val = q.custPhone.value.trim();
+    if (!val) {
+      phoneFeedback.style.display = 'none';
+      phoneFeedback.textContent = '';
+      return;
+    }
+    const digits = val.replace(/\D/g, '');
+    const isValid = digits.length === 10 || (digits.length === 11 && digits.startsWith('1'));
+    if (!isValid) {
+      phoneFeedback.textContent = "Note: Phone number doesn't appear to be 10 digits. You can still proceed.";
+      phoneFeedback.style.display = 'block';
+    } else {
+      phoneFeedback.style.display = 'none';
+      phoneFeedback.textContent = '';
+    }
+  }
+
+  function validateCustomerEmail() {
+    if (!q.custEmail || !emailFeedback) return;
+    const val = q.custEmail.value.trim();
+    if (!val) {
+      emailFeedback.style.display = 'none';
+      emailFeedback.textContent = '';
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(val)) {
+      emailFeedback.textContent = "Note: Email address format looks incomplete. You can still proceed.";
+      emailFeedback.style.display = 'block';
+    } else {
+      emailFeedback.style.display = 'none';
+      emailFeedback.textContent = '';
+    }
+  }
+
+  if (q.custPhone) {
+    q.custPhone.addEventListener('input', validateCustomerPhone);
+    q.custPhone.addEventListener('blur', validateCustomerPhone);
+  }
+  if (q.custEmail) {
+    q.custEmail.addEventListener('input', validateCustomerEmail);
+    q.custEmail.addEventListener('blur', validateCustomerEmail);
+  }
+
   // Quick-Fill Sample Button (Reference Example from Skill)
   q.quickFillBtn.addEventListener('click', () => {
     q.custName.value = (currentLanguage === 'es')
@@ -2029,7 +2349,10 @@
     if (DOM.priceSheet.warningBanner) DOM.priceSheet.warningBanner.style.display = 'none';
     if (DOM.priceSheet.hintBanner) DOM.priceSheet.hintBanner.style.display = 'none';
 
-    currentSettings = validated;
+    currentSettings = Object.assign({}, validated, {
+      validDays: validated.validDays !== undefined ? validated.validDays : ((currentSettings && currentSettings.validDays) ? currentSettings.validDays : 14),
+      logo: validated.logo !== undefined ? validated.logo : ((currentSettings && currentSettings.logo) ? currentSettings.logo : '')
+    });
     const saved = saveSettingsToStorage();
     updateScreenBadges();
     updateLiveRunningTotal();
@@ -2145,14 +2468,18 @@
     );
 
     const today = new Date();
+    const validDays = (currentSettings && currentSettings.validDays) ? currentSettings.validDays : 14;
     const valid = new Date();
-    valid.setDate(valid.getDate() + 14);
+    valid.setDate(valid.getDate() + validDays);
+
+    const longDateLocale = currentLanguage === 'es' ? 'es-US' : 'en-US';
+    const longDateOpts = { month: 'long', day: 'numeric', year: 'numeric' };
 
     const quoteData = {
       quoteId: getNextQuoteNumber(),
       createdAt: Date.now(),
-      dateFormatted: today.toLocaleDateString(currentLanguage === 'es' ? 'es-US' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      validThrough: valid.toLocaleDateString(currentLanguage === 'es' ? 'es-US' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      dateFormatted: today.toLocaleDateString(longDateLocale, longDateOpts),
+      validThrough: valid.toLocaleDateString(longDateLocale, longDateOpts),
       custName: formData.custName,
       custAddress: formData.custAddress,
       custPhone: formData.custPhone,
