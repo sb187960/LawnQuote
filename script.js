@@ -337,6 +337,8 @@
       skipToMain: 'Skip to main content',
       btnShareEstimate: 'Share',
       methodShare: 'share',
+      btnCancel: 'Cancel',
+      ariaCloseModal: 'Close dialog',
     },
     es: {
       appTitle: 'LawnQuote',
@@ -619,6 +621,8 @@
       skipToMain: 'Saltar al contenido principal',
       btnShareEstimate: 'Compartir',
       methodShare: 'compartido',
+      btnCancel: 'Cancelar',
+      ariaCloseModal: 'Cerrar diálogo',
     }
   };
 
