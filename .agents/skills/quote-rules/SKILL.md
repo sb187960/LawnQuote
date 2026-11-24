@@ -12,15 +12,15 @@ This skill is the team's single source of truth governing calculation logic, dat
 The business owner configures base settings stored defensively in browser `localStorage`:
 * **Business Info:** Business Name, Phone Number, Email Address.
 * **Quote Terms:** Default payment and validity terms (e.g., *"Estimates valid for 14 days. Payment due upon completion of work."*).
-* **Minimum Job Charge:** A baseline dollar floor (e.g., `$50.00`) below which no job is dispatched.
+* **Minimum Job Charge:** A baseline dollar floor (e.g., `$40.00`) below which no job is dispatched.
 * **Service Rates:**
-  1. **Mowing:** Billed per 1,000 sq ft of lawn area (e.g., `$12.00 / 1k sq ft`).
-  2. **Edging:** Billed per 1,000 sq ft of lawn area (e.g., `$4.00 / 1k sq ft`).
-  3. **Leaf Cleanup:** Billed per 1,000 sq ft of lawn area (e.g., `$8.00 / 1k sq ft`).
-  4. **Turf Fertilization:** Billed per 1,000 sq ft of lawn area (e.g., `$9.00 / 1k sq ft`).
-  5. **Overseeding & Winter Rye Grass:** Billed per 1,000 sq ft of lawn area (e.g., `$18.00 / 1k sq ft`).
-  6. **Mulch:** Billed per cubic yard delivered and installed (e.g., `$85.00 / cu yd`).
-  7. **Hedge Trimming:** Billed per crew hour (e.g., `$55.00 / hr`).
+  1. **Mowing:** Billed per 1,000 sq ft of lawn area (e.g., `$8.00 / 1k sq ft`).
+  2. **Edging:** Billed per 1,000 sq ft of lawn area (e.g., `$2.00 / 1k sq ft`).
+  3. **Leaf Cleanup:** Billed per 1,000 sq ft of lawn area (e.g., `$6.00 / 1k sq ft`).
+  4. **Turf Fertilization:** Billed per 1,000 sq ft of lawn area (e.g., `$7.00 / 1k sq ft`).
+  5. **Overseeding & Winter Rye Grass:** Billed per 1,000 sq ft of lawn area (e.g., `$14.00 / 1k sq ft`).
+  6. **Mulch:** Billed per cubic yard delivered and installed (e.g., `$40.00 / cu yd`).
+  7. **Hedge Trimming:** Billed per crew hour (e.g., `$20.00 / hr`).
 
 ## 2. Pricing Calculation Logic
 
@@ -68,6 +68,17 @@ $$\text{Final Total} = \text{Math.round}\left(\frac{\text{Base Total}}{5}\right)
    * Math: $1 \times \$12 = \$12.00$
    * Minimum Adjustment: $+\$38.00$
    * **Final Total: $50.00**
+3. **Cut & Line Up Standard Job ($4,200 \text{ sq ft}$ at Default Rates):**
+   * Services: Mowing ($8/1k), Edging ($2/1k)
+   * Math: $5 \times \$8 = \$40.00$; $5 \times \$2 = \$10.00$
+   * Subtotal: **$50.00**
+   * **Final Total: $50.00**
+4. **Small Yard Floor Job ($1,000 \text{ sq ft}$ at $40 Min Floor):**
+   * Services: Mowing ($8/1k), Edging ($2/1k)
+   * Math: $1 \times \$8 = \$8.00$; $1 \times \$2 = \$2.00$
+   * Subtotal: **$10.00**
+   * Minimum Adjustment: $+\$30.00$
+   * **Final Total: $40.00**
 
 ## 3. Strict Quote Preview Layout Order
 

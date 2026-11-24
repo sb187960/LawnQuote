@@ -28,8 +28,8 @@ Owners of small lawn care and landscaping crews write quotes by hand at night af
 
 1. Open the live app on a phone or laptop. There is nothing to install and no login.
 2. Go to the **Price Sheet** tab. It is pre-filled with realistic sample rates, so you can leave it as is or customize it.
-3. Go to the **Yard & Services** tab and tap **Fill Sample** to load a standard cut and line up job (3,000 sq ft lawn, Mowing & Edging).
-4. Tap **Generate Quote Preview**. The total will be **$50.00** ($48.00 subtotal with the crew's $50.00 minimum dispatch floor applied). You can also customize yard size or add mulch and hedge trimming to base larger jobs off that initial rate.
+3. Go to the **Yard & Services** tab and tap **Fill Sample** to load the reference job (4,200 sq ft lawn, Mowing, Edging, 2 cu yds Mulch, 1.5 hrs Hedge trimming).
+4. Tap **Generate Quote Preview**. The total will be **$160.00** ($50 for cut & line up, $80 for 2 yds mulch, and $30 for 1.5 hrs hedge trimming). Uncheck mulch and hedge to see the standard $50.00 cut & line up quote (or $40.00 minimum floor on small yards).
 5. Tap **Print / Save as PDF** to view the customer-ready quote, or tap **Text Estimate** to see the curbside message.
 
 ---
@@ -39,18 +39,18 @@ Owners of small lawn care and landscaping crews write quotes by hand at night af
 All rates come from the owner's price sheet:
 * **Area-Based Services:** Lawn area is always rounded **UP to the next 1,000 sq ft** (e.g., 4,200 sq ft is billed as 5 units; 500 sq ft is billed as 1 unit).
 * **Quantity-Based Services:** Mulch is billed per cubic yard delivered and installed; hedge trimming is billed per crew hour.
-* **Minimum Job Charge Floor:** If the calculated subtotal is below the minimum job charge ($50 baseline), the total is raised to the floor with an explanatory note on the quote.
+* **Minimum Job Charge Floor:** If the calculated subtotal is below the minimum job charge ($40 baseline), the total is raised to the floor with an explanatory note on the quote.
 * **Nearest $5 Rounding:** The final total is rounded to the nearest multiple of $5 to streamline field cash and electronic payments.
 
 ### Default Baseline Rates (7 Services)
-1. **Mowing:** $12.00 per 1,000 sq ft
-2. **Edging:** $4.00 per 1,000 sq ft
-3. **Leaf Cleanup:** $8.00 per 1,000 sq ft
-4. **Turf Fertilization:** $9.00 per 1,000 sq ft
-5. **Overseeding & Winter Rye Grass:** $18.00 per 1,000 sq ft
-6. **Mulch Delivery & Install:** $85.00 per cubic yard
-7. **Hedge & Shrub Trimming:** $55.00 per crew hour
-* **Minimum Job Charge:** $50.00 baseline floor
+1. **Mowing:** $8.00 per 1,000 sq ft
+2. **Edging:** $2.00 per 1,000 sq ft ($50 to cut & line up on 4,200 sq ft)
+3. **Leaf Cleanup:** $6.00 per 1,000 sq ft
+4. **Turf Fertilization:** $7.00 per 1,000 sq ft
+5. **Overseeding & Winter Rye Grass:** $14.00 per 1,000 sq ft
+6. **Mulch Delivery & Install:** $40.00 per cubic yard
+7. **Hedge & Shrub Trimming:** $20.00 per crew hour
+* **Minimum Job Charge:** $40.00 baseline floor
 
 ---
 

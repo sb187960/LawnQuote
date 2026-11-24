@@ -34,16 +34,16 @@
     phone: '(555) 234-5678',
     email: 'quotes@greenthumb-example.com',
     validDays: 14,
-    minJobCharge: 50.0,
+    minJobCharge: 40.0,
     quoteTerms: 'Estimates valid for 14 days. Payment due upon completion of services.',
     rates: {
-      mowing: 12.0,      // $ per 1,000 sq ft
-      edging: 4.0,       // $ per 1,000 sq ft
-      leaf: 8.0,         // $ per 1,000 sq ft
-      fertilizer: 9.0,   // $ per 1,000 sq ft
-      overseed: 18.0,    // $ per 1,000 sq ft
-      mulch: 85.0,       // $ per cubic yard
-      hedge: 55.0        // $ per crew hour
+      mowing: 8.0,       // $ per 1,000 sq ft
+      edging: 2.0,       // $ per 1,000 sq ft ($10 / 1k sq ft -> 5 units = $50 cut & line up)
+      leaf: 6.0,         // $ per 1,000 sq ft
+      fertilizer: 7.0,   // $ per 1,000 sq ft
+      overseed: 14.0,    // $ per 1,000 sq ft
+      mulch: 40.0,       // $ per cubic yard
+      hedge: 20.0        // $ per crew hour
     },
     logo: ''
   };
@@ -53,16 +53,16 @@
     phone: '(555) 345-6789',
     email: 'quotes@greenedge-fake.com',
     validDays: 14,
-    minJobCharge: 50.0,
+    minJobCharge: 40.0,
     quoteTerms: 'Estimates valid for 14 days. Payment due upon completion of services.',
     rates: {
-      mowing: 12.0,
-      edging: 4.0,
-      leaf: 8.0,
-      fertilizer: 9.0,
-      overseed: 18.0,
-      mulch: 85.0,
-      hedge: 55.0
+      mowing: 8.0,
+      edging: 2.0,
+      leaf: 6.0,
+      fertilizer: 7.0,
+      overseed: 14.0,
+      mulch: 40.0,
+      hedge: 20.0
     },
     logo: ''
   };
@@ -89,7 +89,7 @@
       stepPreview: 'Quote Preview',
 
       // Price Sheet
-      pricesheetHint: "<strong>Crew Pricing Setup:</strong> We've pre-filled realistic baseline rates ($12/1k mowing, $50 min charge). Update with your crew's actual pricing, then tap <strong>Save Settings</strong>.",
+      pricesheetHint: "<strong>Crew Pricing Setup:</strong> We've pre-filled realistic baseline rates ($8/1k mowing, $2/1k edging, $40 min charge). Update with your crew's actual pricing, then tap <strong>Save Settings</strong>.",
       priceSheetTitle: 'Business Price Sheet & Settings',
       priceSheetDesc: "Set your crew's rates and business details. Everything is saved locally on your phone.",
       bizInfoTitle: 'Business Information',
@@ -193,7 +193,7 @@
       emptyStateTitle: 'No Active Quote Yet',
       emptyStateText: 'Enter property measurements and select services in Step 2 to generate a professional, print-ready quote in under 60 seconds.',
       btnEmptyStart: 'Create New Quote',
-      btnEmptySample: 'Load Sample Estimate ($50.00)',
+      btnEmptySample: 'Load Reference Sample ($160.00)',
       quoteTypeEstimate: 'ESTIMATE',
       lblEstimateNum: 'Estimate #:',
       lblDate: 'Date:',
@@ -391,7 +391,7 @@
       stepPreview: 'Vista Previa',
 
       // Price Sheet
-      pricesheetHint: '<strong>Configuración de Tarifas:</strong> Hemos completado tarifas base realistas ($12/1k corte, $50 cargo mínimo). Modifique según sus precios y presione <strong>Guardar Configuración</strong>.',
+      pricesheetHint: '<strong>Configuración de Tarifas:</strong> Hemos completado tarifas base realistas ($8/1k corte, $2/1k bordeado, cargo mín. $40). Modifique según sus precios y presione <strong>Guardar Configuración</strong>.',
       priceSheetTitle: 'Tarifas y Configuración del Negocio',
       priceSheetDesc: 'Configure las tarifas y datos de su cuadrilla. Todo se guarda localmente en su teléfono.',
       bizInfoTitle: 'Información del Negocio',
@@ -495,7 +495,7 @@
       emptyStateTitle: 'No Hay Cotización Activa Aún',
       emptyStateText: 'Ingrese las medidas de la propiedad y seleccione los servicios en el Paso 2 para generar una cotización profesional en menos de 60 segundos.',
       btnEmptyStart: 'Crear Nueva Cotización',
-      btnEmptySample: 'Cargar Cotización de Ejemplo ($50.00)',
+      btnEmptySample: 'Cargar Cotización de Ejemplo ($160.00)',
       quoteTypeEstimate: 'COTIZACIÓN',
       lblEstimateNum: 'Cotización #:',
       lblDate: 'Fecha:',
@@ -715,8 +715,8 @@
     leaf: { min: 2, max: 35, label: 'Leaf cleanup', typical: '$6–$15 / 1k sq ft' },
     fertilizer: { min: 3, max: 40, label: 'Fertilization', typical: '$6–$18 / 1k sq ft' },
     overseed: { min: 5, max: 60, label: 'Overseeding / Rye', typical: '$12–$30 / 1k sq ft' },
-    mulch: { min: 20, max: 200, label: 'Mulch', typical: '$70–$120 / cu yd' },
-    hedge: { min: 15, max: 150, label: 'Hedge trimming', typical: '$45–$75 / hr' },
+    mulch: { min: 20, max: 200, label: 'Mulch', typical: '$40–$100 / cu yd' },
+    hedge: { min: 15, max: 150, label: 'Hedge trimming', typical: '$20–$60 / hr' },
     minJobCharge: { min: 10, max: 250, label: 'Minimum job charge', typical: '$35–$100' }
   };
 
@@ -2271,7 +2271,7 @@
     q.custEmail.addEventListener('blur', validateCustomerEmail);
   }
 
-  // Quick-Fill Sample Button (Standard Cut & Line Up Package ~$50)
+  // Quick-Fill Sample Button (Reference Sample with Demo Default Rates)
   q.quickFillBtn.addEventListener('click', () => {
     q.custName.value = (currentLanguage === 'es')
       ? 'Juana Pérez (Cliente de Ejemplo)'
@@ -2279,7 +2279,7 @@
     q.custAddress.value = '742 Evergreen Terrace, Springfield, TX 75001';
     if (q.custPhone) q.custPhone.value = '555-0100';
     if (q.custEmail) q.custEmail.value = 'sample@example.com';
-    q.yardSize.value = 3000;
+    q.yardSize.value = 4200;
 
     clearFieldError(q.custName, q.errors.custName);
     clearFieldError(q.custAddress, q.errors.custAddress);
@@ -2294,13 +2294,13 @@
     q.svcFertilizer.checked = false;
     q.svcOverseed.checked = false;
 
-    q.svcMulch.checked = false;
+    q.svcMulch.checked = true;
     toggleServiceQty(q.svcMulch, q.mulchContainer, q.qtyMulch);
-    q.qtyMulch.value = '';
+    q.qtyMulch.value = 2;
 
-    q.svcHedge.checked = false;
+    q.svcHedge.checked = true;
     toggleServiceQty(q.svcHedge, q.hedgeContainer, q.qtyHedge);
-    q.qtyHedge.value = '';
+    q.qtyHedge.value = 1.5;
 
     updateLiveRunningTotal();
   });
