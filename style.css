@@ -154,16 +154,25 @@ h1, h2, h3, h4, p, span, div, a, label {
   top: 0;
   z-index: 100;
   box-shadow: var(--shadow-xs);
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .header-inner {
   max-width: 980px;
   margin: 0 auto;
   padding: 12px 16px;
+  padding-left: max(16px, env(safe-area-inset-left, 16px));
+  padding-right: max(16px, env(safe-area-inset-right, 16px));
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+
+@media (max-width: 860px) {
+  .app-subtitle {
+    display: none;
+  }
 }
 
 .logo-area {
@@ -319,6 +328,8 @@ h1, h2, h3, h4, p, span, div, a, label {
   width: 100%;
   margin: 0 auto;
   padding: 24px 16px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 16px));
+  padding-right: max(16px, env(safe-area-inset-right, 16px));
   flex: 1;
 }
 
@@ -1565,7 +1576,9 @@ textarea.form-control {
   }
 
   .app-container {
-    padding: 12px 12px 86px;
+    padding: 12px 12px calc(86px + env(safe-area-inset-bottom, 0px));
+    padding-left: max(12px, env(safe-area-inset-left, 12px));
+    padding-right: max(12px, env(safe-area-inset-right, 12px));
   }
 
   .form-row {
@@ -1669,8 +1682,8 @@ textarea.form-control {
   }
 }
 
-/* Responsive Table Columns for 375px screens */
-@media (max-width: 480px) {
+/* Responsive Table Columns for Mobile Screens (<= 640px) */
+@media (max-width: 640px) {
   .quote-document {
     padding: 16px 12px;
   }
@@ -1731,6 +1744,19 @@ textarea.form-control {
   .send-buttons-grid {
     grid-template-columns: 1fr;
     gap: 8px;
+  }
+}
+
+/* Ultra-Compact Phone Viewport Defense (<= 360px) */
+@media (max-width: 360px) {
+  .preview-actions .btn {
+    padding: 10px 4px;
+    font-size: 0.75rem;
+  }
+  .send-actions-buttons .btn {
+    padding: 8px 4px;
+    font-size: 0.75rem;
+    min-width: 120px;
   }
 }
 

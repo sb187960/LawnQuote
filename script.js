@@ -3860,6 +3860,13 @@
       });
   }
 
+  // Handle window resizing and orientation changes for map and UI
+  window.addEventListener('resize', () => {
+    if (leafletMap && DOM.map.modal && DOM.map.modal.style.display !== 'none') {
+      leafletMap.invalidateSize();
+    }
+  });
+
   // Measure Map Modal Events
   DOM.map.btnOpen.addEventListener('click', () => {
     DOM.map.modal.style.display = 'flex';
