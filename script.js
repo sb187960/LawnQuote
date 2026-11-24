@@ -193,7 +193,7 @@
       emptyStateTitle: 'No Active Quote Yet',
       emptyStateText: 'Enter property measurements and select services in Step 2 to generate a professional, print-ready quote in under 60 seconds.',
       btnEmptyStart: 'Create New Quote',
-      btnEmptySample: 'Load Reference Sample ($335.00)',
+      btnEmptySample: 'Load Sample Estimate ($50.00)',
       quoteTypeEstimate: 'ESTIMATE',
       lblEstimateNum: 'Estimate #:',
       lblDate: 'Date:',
@@ -495,7 +495,7 @@
       emptyStateTitle: 'No Hay Cotización Activa Aún',
       emptyStateText: 'Ingrese las medidas de la propiedad y seleccione los servicios en el Paso 2 para generar una cotización profesional en menos de 60 segundos.',
       btnEmptyStart: 'Crear Nueva Cotización',
-      btnEmptySample: 'Cargar Ejemplo de Referencia ($335.00)',
+      btnEmptySample: 'Cargar Cotización de Ejemplo ($50.00)',
       quoteTypeEstimate: 'COTIZACIÓN',
       lblEstimateNum: 'Cotización #:',
       lblDate: 'Fecha:',
@@ -2271,7 +2271,7 @@
     q.custEmail.addEventListener('blur', validateCustomerEmail);
   }
 
-  // Quick-Fill Sample Button (Reference Example from Skill)
+  // Quick-Fill Sample Button (Standard Cut & Line Up Package ~$50)
   q.quickFillBtn.addEventListener('click', () => {
     q.custName.value = (currentLanguage === 'es')
       ? 'Juana Pérez (Cliente de Ejemplo)'
@@ -2279,7 +2279,7 @@
     q.custAddress.value = '742 Evergreen Terrace, Springfield, TX 75001';
     if (q.custPhone) q.custPhone.value = '555-0100';
     if (q.custEmail) q.custEmail.value = 'sample@example.com';
-    q.yardSize.value = 4200;
+    q.yardSize.value = 3000;
 
     clearFieldError(q.custName, q.errors.custName);
     clearFieldError(q.custAddress, q.errors.custAddress);
@@ -2294,13 +2294,13 @@
     q.svcFertilizer.checked = false;
     q.svcOverseed.checked = false;
 
-    q.svcMulch.checked = true;
+    q.svcMulch.checked = false;
     toggleServiceQty(q.svcMulch, q.mulchContainer, q.qtyMulch);
-    q.qtyMulch.value = 2;
+    q.qtyMulch.value = '';
 
-    q.svcHedge.checked = true;
+    q.svcHedge.checked = false;
     toggleServiceQty(q.svcHedge, q.hedgeContainer, q.qtyHedge);
-    q.qtyHedge.value = 1.5;
+    q.qtyHedge.value = '';
 
     updateLiveRunningTotal();
   });

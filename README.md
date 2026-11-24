@@ -28,10 +28,8 @@ Owners of small lawn care and landscaping crews write quotes by hand at night af
 
 1. Open the live app on a phone or laptop. There is nothing to install and no login.
 2. Go to the **Price Sheet** tab. It is pre-filled with realistic sample rates, so you can leave it as is or customize it.
-3. Go to the **Yard & Services** tab and tap **Fill Sample**, or enter this standard reference job:
-   * **Yard size:** 4,200 sq ft
-   * **Services:** Mowing, Edging, Mulch (2 cubic yards), Hedge trimming (1.5 hours)
-4. Tap **Generate Quote Preview**. The total should be **$335.00** ($332.50 subtotal rounded to nearest $5).
+3. Go to the **Yard & Services** tab and tap **Fill Sample** to load a standard cut and line up job (3,000 sq ft lawn, Mowing & Edging).
+4. Tap **Generate Quote Preview**. The total will be **$50.00** ($48.00 subtotal with the crew's $50.00 minimum dispatch floor applied). You can also customize yard size or add mulch and hedge trimming to base larger jobs off that initial rate.
 5. Tap **Print / Save as PDF** to view the customer-ready quote, or tap **Text Estimate** to see the curbside message.
 
 ---
